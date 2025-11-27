@@ -64,13 +64,29 @@ class OrdersFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val orders = orderService.getOrders()
+                val allOrders = orderService.getOrders()
+                val isAdmin = userManager.getUserRole() == "admin"
+                val currentUserId = userManager.getUserId()
 
-                if (orders.isEmpty()) {
+                // Filtrar pedidos según el rol
+                val filteredOrders = if (isAdmin) {
+                    // Admin ve todos los pedidos
+                    allOrders
+                } else {
+                    // Usuario normal solo ve sus propios pedidos
+                    allOrders.filter { it.user_id == currentUserId }
+                }
+
+                if (filteredOrders.isEmpty()) {
+                    binding.emptyText.text = if (isAdmin) {
+                        "No hay pedidos registrados"
+                    } else {
+                        "No tienes pedidos aún"
+                    }
                     binding.emptyText.visibility = View.VISIBLE
                 } else {
                     // Ordenar por fecha más reciente primero
-                    val sortedOrders = orders.sortedByDescending { it.id }
+                    val sortedOrders = filteredOrders.sortedByDescending { it.id }
                     orderAdapter.updateOrders(sortedOrders)
                     binding.ordersRecyclerView.visibility = View.VISIBLE
                 }
