@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_user"
+    app:startDestination="@id/navigation_products">
+
+    <fragment
+        android:id="@+id/navigation_products"
+        android:name="com.example.galletas.ui.fragments.ProductsFragment"
+        android:label="Productos"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.example.galletas.ui.fragments.CartFragment"
+        android:label="Carrito"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
+        android:id="@+id/navigation_orders"
+        android:name="com.example.galletas.ui.fragments.OrdersFragment"
+        android:label="Pedidos"
+        tools:layout="@layout/fragment_orders" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.galletas.ui.fragments.ProfileFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>
+
